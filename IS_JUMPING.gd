@@ -5,7 +5,7 @@ const UP = Vector2(0, -1);
 const SPEED = 70;
 const JUMP_SPEED = 270;
 var player_motion = Vector2(0, 0)
-var jump_gravity_increment = 10;
+var jump_gravity_increment = 0.01;
 
 onready var player = get_node("../../../Bubble_Girl");
 onready var sprite = get_node("../../AnimatedSprite");
@@ -45,9 +45,14 @@ func move_character(motion):
 func apply_gravity(delta):
 	if apply_gravity == true:		
 		player_motion.y += 4 + jump_gravity_increment 
-	if !player.is_on_floor():
-		player_motion.y += (jump_gravity_increment * 2) + jump_gravity_increment * delta
 		if jump_gravity_increment > 1:
-			jump_gravity_increment -= .15
-	else:
-			player_motion.y = 0;
+			jump_gravity_increment -= .20
+#	print(jump_gravity_increment)
+#	if apply_gravity == true:		
+#		player_motion.y += 4 + jump_gravity_increment 
+#	if !player.is_on_floor():
+##		player_motion.y += (jump_gravity_increment * 2) + jump_gravity_increment * delta
+#		if jump_gravity_increment > 1:
+#			jump_gravity_increment -= .35
+#	else:
+#			player_motion.y = 0;

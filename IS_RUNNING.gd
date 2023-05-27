@@ -11,11 +11,13 @@ onready var sprite = get_node("../../AnimatedSprite");
 onready var stateMachine = get_parent();
 
 var current_state;
+var apply_gravity;
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current_state = stateMachine.get_state();
+	apply_gravity = true;
 	
 func _physics_process(delta):
 	current_state = stateMachine.get_state();
@@ -37,8 +39,8 @@ func move_character(motion):
 
 			
 func apply_gravity(delta):
-#	if apply_gravity == true:		
-#		character_motion.y += 4 + jump_gravity_increment 
+	if apply_gravity == true:		
+		character_motion.y += 4 + jump_gravity_increment 
 	if !player.is_on_floor():
 		character_motion.y += (jump_gravity_increment * 2) + jump_gravity_increment * delta
 		if jump_gravity_increment > 1:

@@ -1,0 +1,81 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://assets/main_character_V3/run/v2/bubble_girl_run_with_sat4.png" type="Texture" id=1]
+[ext_resource path="res://assets/main_character_V3/jump/JUMP4.png" type="Texture" id=2]
+[ext_resource path="res://assets/main_character/jump/momoka_jump3.png" type="Texture" id=3]
+[ext_resource path="res://assets/main_character/jump/momoka_jump6.png" type="Texture" id=4]
+[ext_resource path="res://assets/main_character_V3/jump/JUMP1.png" type="Texture" id=5]
+[ext_resource path="res://assets/main_character_V3/run/v2/bubble_girl_run_with_sat1.png" type="Texture" id=6]
+[ext_resource path="res://assets/main_character_V3/run/v2/bubble_girl_run_with_sat2.png" type="Texture" id=7]
+[ext_resource path="res://assets/main_character_V3/run/v2/bubble_girl_run_with_sat3.png" type="Texture" id=8]
+[ext_resource path="res://assets/main_character/jump/momoka_jump5.png" type="Texture" id=9]
+[ext_resource path="res://pixel_smoother.tres" type="Material" id=10]
+[ext_resource path="res://assets/main_character/jump/momoka_jump4.png" type="Texture" id=11]
+[ext_resource path="res://assets/main_character_V3/v4/idle_bubble_girl3.png" type="Texture" id=12]
+[ext_resource path="res://assets/main_character_V3/jump/JUMP5.png" type="Texture" id=13]
+[ext_resource path="res://assets/main_character_V3/jump/JUMP3.png" type="Texture" id=14]
+[ext_resource path="res://assets/main_character_V3/v4/idle_bubble_girl1.png" type="Texture" id=15]
+[ext_resource path="res://assets/main_character_V3/v4/idle_bubble_girl2.png" type="Texture" id=16]
+[ext_resource path="res://IS_IDLE.gd" type="Script" id=17]
+[ext_resource path="res://StateMachine.gd" type="Script" id=18]
+[ext_resource path="res://IS_JUMPING.gd" type="Script" id=19]
+[ext_resource path="res://IS_RUNNING.gd" type="Script" id=20]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "idle",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "in_air",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 14 ), ExtResource( 2 ), ExtResource( 13 ) ],
+"loop": false,
+"name": "jumping",
+"speed": 9.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "running",
+"speed": 14.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=10]
+radius = 5.0
+height = 10.0
+
+[node name="Bubble_Girl" type="KinematicBody2D"]
+collision_mask = 2
+collision/safe_margin = 0.01
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = ExtResource( 10 )
+frames = SubResource( 1 )
+animation = "idle"
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 18 )
+
+[node name="IS_IDLE" type="Node" parent="StateMachine"]
+script = ExtResource( 17 )
+
+[node name="IS_RUNNING" type="Node" parent="StateMachine"]
+script = ExtResource( 20 )
+
+[node name="IS_JUMPING" type="Node" parent="StateMachine"]
+script = ExtResource( 19 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
+shape = SubResource( 10 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 159.0
+margin_top = 52.0
+margin_right = 199.0
+margin_bottom = 92.0

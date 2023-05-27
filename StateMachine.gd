@@ -11,12 +11,14 @@ var state_text;
 onready var player = get_parent();
 onready var text = get_node("../RichTextLabel");
 
+
 var ledgeNodes;
 		
 func _ready():
 	current_state = IS_IDLE;
 	prev_state = IS_RUNNING
 	state_text = "IS_IDLE"
+	direction = "right";
 	
 func _physics_process(delta):
 	print(player.is_on_floor())
@@ -28,8 +30,10 @@ func accept_input():
 		set_state(IS_JUMPING, current_state, "IS_JUMPING");
 	elif Input.is_action_pressed("ui_right") && player.is_on_floor():
 		set_state(IS_RUNNING, current_state, "IS_RUNNING");
+		direction = "right";
 	elif Input.is_action_pressed("ui_left") && player.is_on_floor():
 		set_state(IS_RUNNING, current_state, "IS_RUNNING");
+		direction = "left";
 	elif player.is_on_floor():
 		set_state(IS_IDLE, current_state, "IS_IDLE");
 		

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/idle_bubble_girl3.png-e0c43abafa2786ad92004617e3b2157c.stex"
+path="res://.import/1.png-9620cc3750474d7b2c4ccefefa1c2f01.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/main_character_V3/idle/idle_bubble_girl3.png"
-dest_files=[ "res://.import/idle_bubble_girl3.png-e0c43abafa2786ad92004617e3b2157c.stex" ]
+source_file="res://assets/background/1.png"
+dest_files=[ "res://.import/1.png-9620cc3750474d7b2c4ccefefa1c2f01.stex" ]
 
 [params]
 
