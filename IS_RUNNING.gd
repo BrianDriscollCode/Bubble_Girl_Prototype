@@ -12,6 +12,7 @@ onready var stateMachine = get_parent();
 
 var current_state;
 var apply_gravity;
+var attack_state;
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,9 +22,11 @@ func _ready():
 	
 func _physics_process(delta):
 	current_state = stateMachine.get_state();
+	attack_state = stateMachine.get_attack_state();
 	
 	if current_state == self:
-		sprite.play("running")
+		if !attack_state:
+			sprite.play("running")
 		apply_gravity(delta)
 		if Input.is_action_pressed("ui_left"):
 			character_motion.x = -SPEED;

@@ -12,6 +12,7 @@ onready var stateMachine = get_parent();
 
 var current_state;
 var apply_gravity;
+var attack_state;
 
 
 
@@ -22,9 +23,11 @@ func _ready():
 	
 func _physics_process(delta):
 	current_state = stateMachine.get_state();
+	attack_state = stateMachine.get_attack_state();
 	
 	if current_state == self:
-		sprite.play("idle")
+		if !attack_state:
+			sprite.play("idle");
 		apply_gravity(delta)
 		player_motion.x = 0;
 		move_character(player_motion)

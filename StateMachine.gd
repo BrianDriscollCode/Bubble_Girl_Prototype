@@ -4,6 +4,8 @@ onready var IS_JUMPING = get_node("IS_JUMPING");
 onready var IS_IDLE = get_node("IS_IDLE");
 onready var IS_RUNNING = get_node("IS_RUNNING");
 
+onready var attacking = false;
+
 var direction;
 var current_state;
 var prev_state;
@@ -37,6 +39,9 @@ func accept_input():
 	elif player.is_on_floor():
 		set_state(IS_IDLE, current_state, "IS_IDLE");
 		
+	if Input.is_action_just_pressed("attack"):
+		attacking = true;
+		
 	
 func set_state(new_state, prev_state, current_state_text):
 	# Cannot switch to walking while in the air
@@ -46,11 +51,19 @@ func set_state(new_state, prev_state, current_state_text):
 
 func get_state():
 	return current_state;
+	
+func get_attack_state():
+	return attacking;
+
+func reset_attack_state():
+	attacking = false;
 
 func get_direction():
 	return direction;
 
 func set_idle():
-	set_state(IS_IDLE, current_state, "IS_IDLE");
-
+	set_state(IS_IDLE, current_state, "IS_IDLE");	
+	
+func set_prev_state():
+	set_state(prev_state, current_state, "IDK")
 

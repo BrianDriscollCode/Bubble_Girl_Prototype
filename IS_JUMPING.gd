@@ -2,8 +2,8 @@ extends Node
 
 const GRAVITY = 1;
 const UP = Vector2(0, -1);
-const SPEED = 70;
-const JUMP_SPEED = 270;
+const SPEED = 75;
+const JUMP_SPEED = 230;
 var player_motion = Vector2(0, 0)
 var jump_gravity_increment = 0.01;
 
@@ -13,6 +13,7 @@ onready var stateMachine = get_parent();
 
 var current_state;
 var apply_gravity = false;
+var attack_state;
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,9 +22,11 @@ func _ready():
 	
 func _physics_process(delta):
 	current_state = stateMachine.get_state();
+	attack_state = stateMachine.get_attack_state();
 	
 	if current_state == self:
-		sprite.play("jumping")
+		if !attack_state:
+			sprite.play("jumping")
 		apply_gravity(delta)
 		if Input.is_action_pressed("ui_left"):
 			player_motion.x = -SPEED;
@@ -56,3 +59,9 @@ func apply_gravity(delta):
 #			jump_gravity_increment -= .35
 #	else:
 #			player_motion.y = 0;
+
+
+func _on_HurtEnemy_area_entered(area):
+	player_motion.y = -JUMP_SPEED;
+	jump_gravity_increment = 10;
+	apply_gravity = true;

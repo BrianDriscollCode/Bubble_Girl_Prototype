@@ -1,0 +1,64 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://assets/enemy/skull/skull3.png" type="Texture" id=1]
+[ext_resource path="res://assets/enemy/skull/skull4.png" type="Texture" id=2]
+[ext_resource path="res://assets/enemy/skull/skull2.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemy/skull/skull8.png" type="Texture" id=4]
+[ext_resource path="res://assets/enemy/skull/skull7.png" type="Texture" id=5]
+[ext_resource path="res://assets/enemy/skull/skull5.png" type="Texture" id=6]
+[ext_resource path="res://assets/enemy/skull/skull1.png" type="Texture" id=7]
+[ext_resource path="res://assets/enemy/skull/skull6.png" type="Texture" id=8]
+[ext_resource path="res://enemies/skull/skull.gd" type="Script" id=9]
+[ext_resource path="res://assets/enemy/skull/take_damage/take_damage2.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemy/skull/take_damage/take_damage3.png" type="Texture" id=11]
+[ext_resource path="res://assets/enemy/skull/take_damage/take_damage1.png" type="Texture" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 12 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "take_damage",
+"speed": 2.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 8.0
+height = 0.0
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 7.5, 1 )
+
+[node name="skull" type="Area2D"]
+collision_layer = 16777216
+collision_mask = 4
+script = ExtResource( 9 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+frame = 5
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1, 0 )
+shape = SubResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="TakeDamage" type="Area2D" parent="."]
+collision_layer = 33554432
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TakeDamage"]
+position = Vector2( 1, -8 )
+shape = SubResource( 3 )
+
+[connection signal="area_entered" from="." to="." method="_on_skull_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="area_entered" from="TakeDamage" to="." method="_on_TakeDamage_area_entered"]
