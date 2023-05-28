@@ -2,7 +2,7 @@ extends Node
 
 const GRAVITY = 1;
 const UP = Vector2(0, -1);
-const SPEED = 75;
+var current_speed = 70;
 const JUMP_SPEED = 230;
 var player_motion = Vector2(0, 0)
 var jump_gravity_increment = 0.01;
@@ -10,6 +10,7 @@ var jump_gravity_increment = 0.01;
 onready var player = get_node("../../../Bubble_Girl");
 onready var sprite = get_node("../../AnimatedSprite");
 onready var stateMachine = get_parent();
+onready var IS_RUNNING_STATE = get_node("../IS_RUNNING");
 
 var current_state;
 var apply_gravity = false;
@@ -25,13 +26,14 @@ func _physics_process(delta):
 	attack_state = stateMachine.get_attack_state();
 	
 	if current_state == self:
+		current_speed = IS_RUNNING_STATE.get_speed();
 		if !attack_state:
 			sprite.play("jumping")
 		apply_gravity(delta)
 		if Input.is_action_pressed("ui_left"):
-			player_motion.x = -SPEED;
+			player_motion.x = -current_speed;
 		elif Input.is_action_pressed("ui_right"):
-			player_motion.x = SPEED;
+			player_motion.x = current_speed;
 		else: 
 			player_motion.x = 0;
 		

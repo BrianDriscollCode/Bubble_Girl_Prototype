@@ -1,18 +1,19 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://pixel_smoother.tres" type="Material" id=1]
-[ext_resource path="res://assets/enemy/mushroom/idle/mushroom_idle4.png" type="Texture" id=2]
-[ext_resource path="res://assets/enemy/mushroom/idle/mushroom_idle2.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemy/mushroom/idle/purple/mushroom_idle_purple3.png" type="Texture" id=2]
+[ext_resource path="res://assets/enemy/mushroom/idle/purple/mushroom_idle_purple4.png" type="Texture" id=3]
 [ext_resource path="res://assets/enemy/mushroom/jump/mushroom_jump1.png" type="Texture" id=4]
 [ext_resource path="res://assets/enemy/mushroom/jump/mushroom_jump3.png" type="Texture" id=5]
-[ext_resource path="res://assets/enemy/mushroom/idle/mushroom_idle1.png" type="Texture" id=6]
+[ext_resource path="res://assets/enemy/mushroom/idle/purple/mushroom_idle_purple1.png" type="Texture" id=6]
 [ext_resource path="res://assets/enemy/mushroom/jump/mushroom_jump4.png" type="Texture" id=7]
-[ext_resource path="res://assets/enemy/mushroom/idle/mushroom_idle3.png" type="Texture" id=8]
+[ext_resource path="res://assets/enemy/mushroom/idle/purple/mushroom_idle_purple2.png" type="Texture" id=8]
 [ext_resource path="res://assets/enemy/mushroom/jump/mushroom_jump2.png" type="Texture" id=9]
+[ext_resource path="res://enemies/mushroom/enemyState.gd" type="Script" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "idle",
 "speed": 6.0
@@ -31,9 +32,11 @@ animations = [ {
 material = ExtResource( 1 )
 frames = SubResource( 1 )
 animation = "idle"
+frame = 3
 playing = true
 
 [node name="enemyState" type="Node" parent="."]
+script = ExtResource( 10 )
 
 [node name="Idle" type="Node" parent="enemyState"]
 

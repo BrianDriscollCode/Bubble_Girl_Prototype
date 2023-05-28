@@ -30,7 +30,7 @@ animations = [ {
 "frames": [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 22 ) ],
 "loop": false,
 "name": "attack",
-"speed": 10.0
+"speed": 8.0
 }, {
 "frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 12 ) ],
 "loop": true,
@@ -65,7 +65,7 @@ radius = 5.0
 height = 10.0
 
 [node name="Bubble_Girl" type="KinematicBody2D"]
-collision_mask = 16777218
+collision_mask = 16777222
 collision/safe_margin = 0.01
 script = ExtResource( 24 )
 
@@ -102,7 +102,7 @@ script = ExtResource( 21 )
 
 [node name="HurtEnemy" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 16777216
+collision_mask = 16777220
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtEnemy"]
 position = Vector2( 0, 11.5 )

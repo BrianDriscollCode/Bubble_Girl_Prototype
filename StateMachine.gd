@@ -23,7 +23,6 @@ func _ready():
 	direction = "right";
 	
 func _physics_process(delta):
-	print(player.is_on_floor())
 	accept_input();
 	text.set_text(state_text);
 	
@@ -48,6 +47,9 @@ func set_state(new_state, prev_state, current_state_text):
 	current_state = new_state;
 	prev_state = prev_state;
 	state_text = current_state_text;
+	
+	if new_state == IS_IDLE:
+		IS_RUNNING.reset_speed();
 
 func get_state():
 	return current_state;

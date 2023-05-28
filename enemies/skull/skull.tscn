@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/enemy/skull/skull3.png" type="Texture" id=1]
 [ext_resource path="res://assets/enemy/skull/skull4.png" type="Texture" id=2]
@@ -12,6 +12,10 @@
 [ext_resource path="res://assets/enemy/skull/take_damage/take_damage2.png" type="Texture" id=10]
 [ext_resource path="res://assets/enemy/skull/take_damage/take_damage3.png" type="Texture" id=11]
 [ext_resource path="res://assets/enemy/skull/take_damage/take_damage1.png" type="Texture" id=12]
+[ext_resource path="res://assets/enemy/bubble/enemy_bubble3.png" type="Texture" id=13]
+[ext_resource path="res://pixel_smoother.tres" type="Material" id=14]
+[ext_resource path="res://assets/enemy/bubble/enemy_bubble2.png" type="Texture" id=15]
+[ext_resource path="res://assets/enemy/bubble/enemy_bubble1.png" type="Texture" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -33,14 +37,28 @@ height = 0.0
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 7.5, 1 )
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 8.0
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 8.06226
+
 [node name="skull" type="Area2D"]
 collision_layer = 16777216
-collision_mask = 4
+collision_mask = 16777216
 script = ExtResource( 9 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-frame = 5
+frame = 6
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -59,6 +77,42 @@ collision_mask = 8
 position = Vector2( 1, -8 )
 shape = SubResource( 3 )
 
-[connection signal="area_entered" from="." to="." method="_on_skull_area_entered"]
+[node name="BubbleCollision" type="Area2D" parent="."]
+collision_layer = 67108864
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BubbleCollision"]
+position = Vector2( 1, 0 )
+shape = SubResource( 4 )
+
+[node name="Bubble" type="AnimatedSprite" parent="."]
+visible = false
+material = ExtResource( 14 )
+frames = SubResource( 5 )
+frame = 1
+playing = true
+
+[node name="RayCastUp" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, -15 )
+collision_mask = 16777216
+collide_with_areas = true
+
+[node name="RayCastDown" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 20 )
+collision_mask = 4
+
+[node name="SensePlayer" type="Area2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 2147483648
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SensePlayer"]
+position = Vector2( 1, 0 )
+shape = SubResource( 6 )
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="TakeDamage" to="." method="_on_TakeDamage_area_entered"]
+[connection signal="area_entered" from="BubbleCollision" to="." method="_on_BubbleCollision_area_entered"]
+[connection signal="body_entered" from="BubbleCollision" to="." method="_on_BubbleCollision_body_entered"]
+[connection signal="area_entered" from="SensePlayer" to="." method="_on_SensePlayer_area_entered"]
