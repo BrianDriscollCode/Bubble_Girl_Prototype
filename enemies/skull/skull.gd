@@ -40,7 +40,6 @@ func _physics_process(delta):
 
 func follow_player(delta):
 	var direction = (player.global_position - self.global_position).normalized()
-	print(direction)
 	# Move the enemy towards the player
 	var velocity = direction * speed * delta
 	

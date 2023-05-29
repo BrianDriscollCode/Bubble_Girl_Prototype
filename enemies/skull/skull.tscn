@@ -58,7 +58,6 @@ script = ExtResource( 9 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-frame = 6
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -89,7 +88,6 @@ shape = SubResource( 4 )
 visible = false
 material = ExtResource( 14 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [node name="RayCastUp" type="RayCast2D" parent="."]
