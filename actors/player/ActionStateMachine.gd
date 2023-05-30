@@ -6,7 +6,7 @@ extends Node
 # var b = "text"
 onready var parent = get_node("../../Bubble_Girl");
 var player_position;
-onready var bubble = preload("res://player/projectile/bubble.tscn")
+onready var bubble = preload("res://actors/player/projectile/bubble.tscn")
 onready var scene = get_tree().get_current_scene();
 onready var sprite = get_node("../AnimatedSprite");
 

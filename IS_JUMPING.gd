@@ -11,6 +11,8 @@ onready var player = get_node("../../../Bubble_Girl");
 onready var sprite = get_node("../../AnimatedSprite");
 onready var stateMachine = get_parent();
 onready var IS_RUNNING_STATE = get_node("../IS_RUNNING");
+onready var invincible_timer = get_node("../../InvincibleTimer");
+onready var take_damage_area = get_node("../../TakeDamage");
 
 var current_state;
 var apply_gravity = false;
@@ -64,6 +66,12 @@ func apply_gravity(delta):
 
 
 func _on_HurtEnemy_area_entered(area):
+	take_damage_area.set_monitoring(false);
+	invincible_timer.start();
 	player_motion.y = -JUMP_SPEED;
 	jump_gravity_increment = 10;
 	apply_gravity = true;
+
+
+func _on_InvincibleTimer_timeout():
+	take_damage_area.set_monitoring(true);

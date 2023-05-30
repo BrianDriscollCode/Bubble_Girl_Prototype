@@ -26,6 +26,7 @@ func _physics_process(delta):
 	attack_state = stateMachine.get_attack_state();
 	
 	if current_state == self:
+		sprite.set_speed_scale(1);
 		if !attack_state:
 			sprite.play("idle");
 		apply_gravity(delta)

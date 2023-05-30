@@ -1,0 +1,216 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://pixel_smoother.tres" type="Material" id=1]
+[ext_resource path="res://assets/enemy/mushroom/jump/purple/mushroom_jump_purple1.png" type="Texture" id=4]
+[ext_resource path="res://assets/enemy/mushroom/jump/purple/mushroom_jump_purple3.png" type="Texture" id=5]
+[ext_resource path="res://assets/enemy/mushroom/jump/purple/mushroom_jump_purple2.png" type="Texture" id=7]
+[ext_resource path="res://assets/enemy/mushroom/jump/purple/mushroom_jump_purple4.png" type="Texture" id=9]
+[ext_resource path="res://actors/enemies/mushroom/Mushroom.gd" type="Script" id=10]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10, 2.5 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 3, 7.5 )
+
+[sub_resource type="StreamTexture" id=4]
+load_path = "res://.import/mushroom_idle_purple3.png-ab0abb5e87c55fb37dbed534b193a55a.stex"
+
+[sub_resource type="StreamTexture" id=5]
+load_path = "res://.import/mushroom_idle_purple4.png-a6eccf19eab91deb6eb62e003ea47e9b.stex"
+
+[sub_resource type="StreamTexture" id=6]
+load_path = "res://.import/mushroom_idle_purple1.png-9b51604becf8051699f1a492e2338111.stex"
+
+[sub_resource type="StreamTexture" id=7]
+load_path = "res://.import/mushroom_idle_purple2.png-903b2916cd85678808c35a1ca8d3a745.stex"
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "attack",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "idle",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 9 ) ],
+"loop": false,
+"name": "jump",
+"speed": 9.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 8.06226
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.530259, 0.70317, 0.902017 )
+colors = PoolColorArray( 0.668701, 0, 0.972656, 1, 1, 1, 1, 1, 0.357408, 0.357408, 0.357408, 0.854152, 0.87451, 0.87451, 0.87451, 0.643137 )
+
+[node name="Mushroom" type="KinematicBody2D"]
+collision_layer = 2
+script = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -4.5 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( -1, 5.5 )
+shape = SubResource( 9 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = ExtResource( 1 )
+frames = SubResource( 1 )
+animation = "attack"
+playing = true
+
+[node name="SensePlayer" type="Area2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 2147483648
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SensePlayer"]
+position = Vector2( 1, 0 )
+shape = SubResource( 2 )
+
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="SprayTimer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+
+[node name="FollowTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="ramp" type="CPUParticles2D" parent="."]
+position = Vector2( -6, -10 )
+amount = 18
+emission_shape = 1
+emission_sphere_radius = 0.22
+direction = Vector2( 3, 0 )
+gravity = Vector2( 0, -20 )
+radial_accel = 11.4
+angle = -665.1
+angle_random = 0.68
+color = Color( 1, 0, 0.937255, 0.345098 )
+color_ramp = SubResource( 8 )
+hue_variation = 0.95
+
+[node name="ramp2" type="CPUParticles2D" parent="."]
+position = Vector2( -9, -6 )
+emission_shape = 1
+emission_sphere_radius = 0.22
+gravity = Vector2( 0, -20 )
+radial_accel = 11.4
+angle = -665.1
+angle_random = 0.68
+color = Color( 1, 0, 0.937255, 0.345098 )
+color_ramp = SubResource( 8 )
+hue_variation = 0.95
+
+[node name="ramp3" type="CPUParticles2D" parent="."]
+position = Vector2( 2, -10 )
+emission_shape = 1
+emission_sphere_radius = 0.22
+gravity = Vector2( 0, -20 )
+radial_accel = 11.4
+angle = -665.1
+angle_random = 0.68
+color = Color( 1, 0, 0.937255, 0.345098 )
+color_ramp = SubResource( 8 )
+hue_variation = 0.95
+
+[node name="ramp4" type="CPUParticles2D" parent="."]
+position = Vector2( -1, -6 )
+emission_shape = 1
+emission_sphere_radius = 0.22
+gravity = Vector2( 0, -20 )
+radial_accel = 11.4
+angle = -665.1
+angle_random = 0.68
+color = Color( 1, 0, 0.937255, 0.345098 )
+color_ramp = SubResource( 8 )
+hue_variation = 0.95
+
+[node name="ramp5" type="CPUParticles2D" parent="."]
+position = Vector2( 7, -7 )
+emission_shape = 1
+emission_sphere_radius = 0.22
+gravity = Vector2( 0, -20 )
+radial_accel = 11.4
+angle = -665.1
+angle_random = 0.68
+color = Color( 1, 0, 0.937255, 0.345098 )
+color_ramp = SubResource( 8 )
+hue_variation = 0.95
+
+[node name="ramp6" type="CPUParticles2D" parent="."]
+position = Vector2( 11, -8 )
+emission_shape = 1
+emission_sphere_radius = 0.22
+gravity = Vector2( 0, -20 )
+radial_accel = 11.4
+angle = -665.1
+angle_random = 0.68
+color = Color( 1, 0, 0.937255, 0.345098 )
+color_ramp = SubResource( 8 )
+hue_variation = 0.95
+
+[node name="ramp7" type="CPUParticles2D" parent="."]
+position = Vector2( 12, -5 )
+emission_shape = 1
+emission_sphere_radius = 0.22
+gravity = Vector2( 0, -20 )
+radial_accel = 11.4
+angle = -665.1
+angle_random = 0.68
+color = Color( 1, 0, 0.937255, 0.345098 )
+color_ramp = SubResource( 8 )
+hue_variation = 0.95
+
+[node name="ramp8" type="CPUParticles2D" parent="."]
+position = Vector2( -12, -6 )
+emission_shape = 1
+emission_sphere_radius = 0.22
+gravity = Vector2( 0, -20 )
+radial_accel = 11.4
+angle = -665.1
+angle_random = 0.68
+color = Color( 1, 0, 0.937255, 0.345098 )
+color_ramp = SubResource( 8 )
+hue_variation = 0.95
+
+[node name="normal" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2( -9, -7 )
+emission_shape = 1
+emission_sphere_radius = 0.22
+gravity = Vector2( 0, -20 )
+radial_accel = 11.4
+angle = -665.1
+angle_random = 0.68
+color = Color( 1, 0, 0.937255, 0.345098 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = -20.0
+margin_top = -61.0
+margin_right = 20.0
+margin_bottom = -21.0
+
+[node name="SprayDamage" type="Area2D" parent="."]
+collision_layer = 16777216
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SprayDamage"]
+polygon = PoolVector2Array( -12, -6, -15, -15, -8, -21, -1, -24, 0, -24, 1, -24, 9, -21, 15, -14, 12, -6, 9, -3, -10, -3 )
+disabled = true
+
+[connection signal="area_entered" from="SensePlayer" to="." method="_on_SensePlayer_area_entered"]
+[connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]
+[connection signal="timeout" from="SprayTimer" to="." method="_on_SprayTimer_timeout"]
+[connection signal="timeout" from="FollowTimer" to="." method="_on_FollowTimer_timeout"]
