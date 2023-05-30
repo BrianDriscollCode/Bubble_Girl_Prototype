@@ -459,6 +459,9 @@ position = Vector2( 142, -21 )
 [node name="Platform2" parent="." instance=ExtResource( 19 )]
 position = Vector2( 673, 8 )
 
+[node name="Platform3" parent="." instance=ExtResource( 19 )]
+position = Vector2( 673, 8 )
+
 [node name="Platform" parent="." instance=ExtResource( 19 )]
 position = Vector2( 496, 56 )
 
