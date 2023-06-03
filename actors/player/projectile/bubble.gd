@@ -4,7 +4,8 @@ extends Area2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var player_state_machine = get_tree().get_current_scene().get_node("Bubble_Girl/StateMachine")
+onready var level = get_tree().get_current_scene().get_children()[0];
+var player_state_machine;
 
 onready var sprite = get_node("AnimatedSprite");
 onready var timer = get_node("Timer");
@@ -14,6 +15,8 @@ var direction;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(level)
+	player_state_machine = level.get_node("Bubble_Girl/StateMachine")
 	timer.start();
 	direction = player_state_machine.get_direction();
 

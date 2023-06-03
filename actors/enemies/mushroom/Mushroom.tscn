@@ -198,6 +198,7 @@ angle_random = 0.68
 color = Color( 1, 0, 0.937255, 0.345098 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
 margin_left = -20.0
 margin_top = -61.0
 margin_right = 20.0

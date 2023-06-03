@@ -14,7 +14,7 @@ var enemy_motion = Vector2(0, 0);
 onready var jump_timer = get_node("JumpTimer");
 onready var follow_timer = get_node("FollowTimer");
 onready var spray_timer = get_node("SprayTimer");
-onready var player = get_tree().get_current_scene().get_node("Bubble_Girl");
+onready var player = get_parent().get_node("Bubble_Girl");
 onready var sprite = get_node("AnimatedSprite");
 onready var text = get_node("RichTextLabel");
 onready var spray_damage_area = get_node("SprayDamage/CollisionPolygon2D");
@@ -37,6 +37,7 @@ var jump_gravity_increment = 10;
 
 
 func _ready():
+	print(player);
 	current_state = states.IDLE;
 	text.set_text("IDLE")
 	particles = [particle1, particle2, particle3, particle4, particle5, particle6, particle7, particle8]

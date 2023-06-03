@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Bubble Girl"
-run/main_scene="res://Node2D.tscn"
+run/main_scene="res://game_manager/game_manager.tscn"
 config/icon="res://icon.png"
 
 [display]

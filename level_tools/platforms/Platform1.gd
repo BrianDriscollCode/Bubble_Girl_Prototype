@@ -25,16 +25,19 @@ func _process(delta):
 func move_right(delta):
 	if current_offset < 1:
 		path.set_offset(path.get_offset() + 15 * delta);
+		print(15 * delta)
 	
 func move_left(delta):
 	if current_offset > 0:
 		path.set_offset(path.get_offset() - 15 * delta);
+		print(15 * delta)
 
 func get_current_offset():
+
 	current_offset = path.get_unit_offset();
-	if current_offset > .995:
+	if current_offset == .975:
 		go_right = false;
 		go_left = true;
-	elif current_offset < 0.002:
+	elif current_offset < 0.075:
 		go_right = true;
 		go_left = false;

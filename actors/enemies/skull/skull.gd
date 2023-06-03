@@ -8,7 +8,7 @@ onready var sprite = get_node("AnimatedSprite");
 onready var bubble = get_node("Bubble");
 var current_health = 2;
 
-onready var player = get_tree().get_current_scene().get_node("Bubble_Girl");
+onready var player = get_parent().get_node("Bubble_Girl");
 var x_offset = 0
 var y_offset = 0
 var min_distance = 05;
@@ -39,12 +39,13 @@ func _physics_process(delta):
 #		self.global_position = self.global_position.linear_interpolate(player.global_position + Vector2(x_offset, y_offset), delta * 1)
 
 func follow_player(delta):
-	var direction = (player.global_position - self.global_position).normalized()
+	if player:
+		var direction = (player.global_position - self.global_position).normalized()
 	# Move the enemy towards the player
-	var velocity = direction * speed * delta
+		var velocity = direction * speed * delta
 	
-	if !hurt:
-		translate(velocity)
+		if !hurt:
+			translate(velocity)
 
 func manage_damage():
 	if current_health <= 0:
@@ -67,10 +68,11 @@ func increase_speed():
 		speed += 0.05
 
 func set_flip_boolean():
-	if player.global_position.x > self.global_position.x:
-		sprite.set_flip_h(true);
-	else:
-		sprite.set_flip_h(false);
+	if player:
+		if player.global_position.x > self.global_position.x:
+			sprite.set_flip_h(true);
+		else:
+			sprite.set_flip_h(false);
 
 func _on_Timer_timeout():
 	sprite.set_modulate(Color(1,1,1,1));

@@ -23,15 +23,15 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("attack"):
 		sprite.play("attack")
-	
-	if sprite.get_animation() == "attack" && sprite.get_frame() == 2:
 		var newBubble = bubble.instance();
 		if state_machine.get_direction() == "right":
 			player_position = parent.get_global_position() + Vector2(15, 0);
 		else:
 			player_position = parent.get_global_position() + Vector2(-15, 0);
 		newBubble.set_global_position(player_position);
-		state_machine.reset_attack_state();
 		scene.add_child(newBubble)
+	
+	if sprite.get_animation() == "attack" && sprite.get_frame() == 2:
+		state_machine.reset_attack_state();
 		
 		
