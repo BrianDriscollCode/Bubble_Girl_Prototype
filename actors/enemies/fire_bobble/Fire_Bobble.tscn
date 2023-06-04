@@ -1,15 +1,39 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/enemy/fire_bobble/idle/fire_bobble_idle2.png" type="Texture" id=1]
 [ext_resource path="res://assets/enemy/fire_bobble/idle/fire_bobble_idle1.png" type="Texture" id=2]
 [ext_resource path="res://assets/enemy/fire_bobble/idle/fire_bobble_idle3.png" type="Texture" id=3]
 [ext_resource path="res://assets/enemy/fire_bobble/idle/fire_bobble_idle4.png" type="Texture" id=4]
+[ext_resource path="res://actors/enemies/fire_bobble/Fire_Bobble.gd" type="Script" id=5]
+[ext_resource path="res://assets/enemy/fire_bobble/death/fire_bobble_idle7.png" type="Texture" id=6]
+[ext_resource path="res://assets/enemy/fire_bobble/death/fire_bobble_idle2.png" type="Texture" id=7]
+[ext_resource path="res://assets/enemy/fire_bobble/death/fire_bobble_idle4.png" type="Texture" id=8]
+[ext_resource path="res://assets/enemy/fire_bobble/death/fire_bobble_idle6.png" type="Texture" id=9]
+[ext_resource path="res://assets/enemy/fire_bobble/death/fire_bobble_idle3.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemy/fire_bobble/death/fire_bobble_idle5.png" type="Texture" id=11]
+[ext_resource path="res://assets/enemy/fire_bobble/death/fire_bobble_idle8.png" type="Texture" id=12]
+
+[sub_resource type="RectangleShape2D" id=47]
+extents = Vector2( 5, 4 )
 
 [sub_resource type="CircleShape2D" id=44]
-radius = 4.0
+radius = 3.0
+
+[sub_resource type="Curve" id=45]
+max_value = 1.58
+_data = [ Vector2( 0, 1.31068 ), 0.0, 0.0, 0, 0, Vector2( 0.619681, 0.980318 ), 0.0, 0.0, 0, 0, Vector2( 0.992021, 0.219046 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=46]
+offsets = PoolRealArray( 0.175637, 0.600567, 0.810198, 1 )
+colors = PoolColorArray( 0.274902, 0.274902, 0.274902, 1, 0.466309, 0.466309, 0.466309, 1, 0.626465, 0.626465, 0.626465, 0.329412, 0.712402, 0.712402, 0.712402, 0.027451 )
 
 [sub_resource type="SpriteFrames" id=43]
 animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 6 ), ExtResource( 6 ), ExtResource( 12 ) ],
+"loop": false,
+"name": "death",
+"speed": 8.0
+}, {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "idle",
@@ -17,15 +41,36 @@ animations = [ {
 } ]
 
 [node name="Fire_Bobble" type="Area2D"]
+collision_layer = 33554432
+collision_mask = 8
+script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -3 )
+position = Vector2( 0, 2 )
+shape = SubResource( 47 )
+
+[node name="TakeDamage" type="Area2D" parent="."]
+collision_layer = 50331648
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TakeDamage"]
+position = Vector2( 0, -4 )
 shape = SubResource( 44 )
+
+[node name="smoke" type="CPUParticles2D" parent="."]
+position = Vector2( 2, -10 )
+amount = 20
+gravity = Vector2( 0, -20 )
+initial_velocity = 5.0
+scale_amount = 1.6
+scale_amount_random = 0.78
+scale_amount_curve = SubResource( 45 )
+color_ramp = SubResource( 46 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 43 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 
-[node name="Particles2D" type="Particles2D" parent="AnimatedSprite"]
+[connection signal="area_entered" from="TakeDamage" to="." method="_on_TakeDamage_area_entered"]

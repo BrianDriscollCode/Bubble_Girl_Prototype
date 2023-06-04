@@ -25,9 +25,9 @@ func _process(delta):
 		sprite.play("attack")
 		var newBubble = bubble.instance();
 		if state_machine.get_direction() == "right":
-			player_position = parent.get_global_position() + Vector2(15, 0);
+			player_position = parent.get_global_position() + Vector2(10, 0);
 		else:
-			player_position = parent.get_global_position() + Vector2(-15, 0);
+			player_position = parent.get_global_position() + Vector2(-10, 0);
 		newBubble.set_global_position(player_position);
 		scene.add_child(newBubble)
 	

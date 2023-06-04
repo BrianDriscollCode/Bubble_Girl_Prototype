@@ -18,6 +18,7 @@ onready var player = get_parent().get_node("Bubble_Girl");
 onready var sprite = get_node("AnimatedSprite");
 onready var text = get_node("RichTextLabel");
 onready var spray_damage_area = get_node("SprayDamage/CollisionPolygon2D");
+onready var stand_on_collision = get_node("StandOnCollision");
 
 #particles
 onready var particle1 = get_node("ramp");
@@ -71,6 +72,17 @@ func _physics_process(delta):
 		sprite.play("attack");
 	
 	move_and_slide(enemy_motion, UP)
+	
+	if sprite.get_animation() == "idle":
+		if sprite.get_frame() == 0:
+			stand_on_collision.position = Vector2(0, 6);
+		elif sprite.get_frame() == 1:
+			stand_on_collision.position = Vector2(0, 8);
+		elif sprite.get_frame() == 2:
+			stand_on_collision.position = Vector2(0, 3);
+		elif sprite.get_frame() == 3:
+			stand_on_collision.position = Vector2(0, 4);
+			
 
 func jump():
 	if can_jump:

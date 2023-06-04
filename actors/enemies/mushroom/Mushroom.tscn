@@ -54,9 +54,14 @@ colors = PoolColorArray( 0.668701, 0, 0.972656, 1, 1, 1, 1, 1, 0.357408, 0.35740
 collision_layer = 2
 script = ExtResource( 10 )
 
+[node name="StandOnCollision" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, 3 )
+polygon = PoolVector2Array( -13, -7, -1, -14, 2, -14, 13, -6, 13, -5, -13, -5 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -4.5 )
 shape = SubResource( 3 )
+disabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 5.5 )
@@ -65,10 +70,11 @@ shape = SubResource( 9 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = ExtResource( 1 )
 frames = SubResource( 1 )
-animation = "attack"
-playing = true
+animation = "idle"
+frame = 2
 
 [node name="SensePlayer" type="Area2D" parent="."]
+visible = false
 collision_layer = 2147483648
 collision_mask = 2147483648
 

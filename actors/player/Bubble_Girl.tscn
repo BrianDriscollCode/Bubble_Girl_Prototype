@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://actors/player/ActionStateMachine.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/Bubble_Girl.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://assets/main_character_V3/jump/JUMP4.png" type="Texture" id=22]
 [ext_resource path="res://assets/main_character/jump/momoka_jump3.png" type="Texture" id=23]
 [ext_resource path="res://assets/main_character_V3/run/v2/bubble_girl_run_with_sat4.png" type="Texture" id=24]
+[ext_resource path="res://actors/player/IS_DAMAGED.gd" type="Script" id=25]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -54,20 +55,23 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=10]
-radius = 5.0
-height = 10.0
+radius = 4.0
+height = 12.0
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 5, 1 )
 
-[sub_resource type="CapsuleShape2D" id=12]
-radius = 5.0
-height = 10.0
+[sub_resource type="CapsuleShape2D" id=13]
+radius = 2.0
+height = 16.0
 
 [node name="Bubble_Girl" type="KinematicBody2D"]
 collision_mask = 16777222
 collision/safe_margin = 0.01
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = ExtResource( 18 )
@@ -85,6 +89,9 @@ script = ExtResource( 19 )
 
 [node name="IS_JUMPING" type="Node" parent="StateMachine"]
 script = ExtResource( 21 )
+
+[node name="IS_DAMAGED" type="Node" parent="StateMachine"]
+script = ExtResource( 25 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
@@ -108,17 +115,32 @@ collision_mask = 16777220
 position = Vector2( 0, 12 )
 shape = SubResource( 11 )
 
-[node name="TakeDamage" type="Area2D" parent="."]
-collision_mask = 33554432
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TakeDamage"]
-position = Vector2( 0, 1 )
-shape = SubResource( 12 )
-
 [node name="InvincibleTimer" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.1
 one_shot = true
 
+[node name="TakeDamageRight" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 33554432
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TakeDamageRight"]
+position = Vector2( 3, 1 )
+shape = SubResource( 13 )
+
+[node name="TakeDamageLeft" type="Area2D" parent="."]
+position = Vector2( 1, 0 )
+collision_layer = 8
+collision_mask = 33554432
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TakeDamageLeft"]
+position = Vector2( -4, 1 )
+shape = SubResource( 13 )
+
 [connection signal="area_entered" from="HurtEnemy" to="StateMachine/IS_JUMPING" method="_on_HurtEnemy_area_entered"]
-[connection signal="area_entered" from="TakeDamage" to="." method="_on_TakeDamage_area_entered"]
+[connection signal="timeout" from="InvincibleTimer" to="StateMachine" method="_on_InvincibleTimer_timeout"]
 [connection signal="timeout" from="InvincibleTimer" to="StateMachine/IS_JUMPING" method="_on_InvincibleTimer_timeout"]
+[connection signal="timeout" from="InvincibleTimer" to="StateMachine/IS_DAMAGED" method="_on_InvincibleTimer_timeout"]
+[connection signal="area_entered" from="TakeDamageRight" to="." method="_on_TakeDamageRight_area_entered"]
+[connection signal="area_entered" from="TakeDamageRight" to="StateMachine/IS_DAMAGED" method="_on_TakeDamageRight_area_entered"]
+[connection signal="area_entered" from="TakeDamageLeft" to="." method="_on_TakeDamageLeft_area_entered"]
+[connection signal="area_entered" from="TakeDamageLeft" to="StateMachine/IS_DAMAGED" method="_on_TakeDamageLeft_area_entered"]

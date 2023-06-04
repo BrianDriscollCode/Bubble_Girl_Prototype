@@ -19,6 +19,7 @@ func _ready():
 	player_state_machine = level.get_node("Bubble_Girl/StateMachine")
 	timer.start();
 	direction = player_state_machine.get_direction();
+	sprite.play("grow");
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -28,13 +29,15 @@ func _process(delta):
 		self.global_position -= velocity * delta;
 	if sprite.get_animation() == "explode" && sprite.get_frame() == 7:
 		queue_free();
+	
+	if sprite.get_animation() == "grow" && sprite.get_frame() == 2:
+		collision_shape.set_disabled(false);
+		sprite.play("default")
 
 func _on_Timer_timeout():
 	collision_shape.set_disabled(true);
 	sprite.play("explode");
 	
-
-
 func _on_bubble_area_entered(area):
 	collision_shape.set_disabled(true);
 	sprite.play("explode");

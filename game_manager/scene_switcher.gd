@@ -1,9 +1,22 @@
 extends Node
 signal level_changed(level_name)
 onready var current_level = $start_menu
+var paused = false;
+var escape_menu = load("res://game_manager/EscapeMenu.tscn").instance();
 
 func _ready():
 	current_level.connect("level_changed", self, "handle_level_changed")
+	pause_mode = Node.PAUSE_MODE_PROCESS;
+	
+func _process(delta):
+	if Input.is_action_just_pressed("menu"):
+		if !paused:
+			print("PAUSE")
+			get_tree().paused = true;
+			paused = true;
+		
+			
+		
 
 func handle_level_changed(current_level_name: String):
 	var next_level 

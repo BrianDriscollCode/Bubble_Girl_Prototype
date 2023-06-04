@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://levels/test_level_2.gd" type="Script" id=1]
 [ext_resource path="res://pixel_smoother.tres" type="Material" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://actors/player/Bubble_Girl.tscn" type="PackedScene" id=5]
 [ext_resource path="res://level_tools/basic_camera.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/enemies/fire_bobble/Fire_Bobble.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/enemies/mushroom/Mushroom.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=36]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -174,3 +175,6 @@ position = Vector2( 123, 84 )
 
 [node name="Fire_Bobble" parent="." instance=ExtResource( 7 )]
 position = Vector2( 161, 106 )
+
+[node name="Mushroom" parent="." instance=ExtResource( 8 )]
+position = Vector2( 83, 94 )
