@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://levels/test_level_2.gd" type="Script" id=1]
 [ext_resource path="res://pixel_smoother.tres" type="Material" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://actors/player/Bubble_Girl.tscn" type="PackedScene" id=5]
 [ext_resource path="res://level_tools/basic_camera.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/enemies/fire_bobble/Fire_Bobble.tscn" type="PackedScene" id=7]
-[ext_resource path="res://actors/enemies/mushroom/Mushroom.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=36]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -156,13 +155,15 @@ resource_local_to_scene = true
 } ]
 5/z_index = 0
 
-[node name="test_level_2" type="Node2D"]
+[node name="level" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="TileMap3" type="TileMap" parent="."]
 material = ExtResource( 2 )
 tile_set = SubResource( 42 )
 cell_size = Vector2( 16, 16 )
+collision_layer = 3
+collision_mask = 3
 format = 1
 tile_data = PoolIntArray( 524287, 1, 0, 458752, 1, 0, 458753, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 2, 0, 589823, 3, 0, 524288, 4, 0, 524289, 4, 0, 524290, 4, 0, 524291, 4, 0, 524292, 4, 0, 524293, 4, 0, 524294, 4, 0, 524295, 4, 0, 524296, 4, 0, 524297, 4, 0, 524298, 4, 0, 524299, 4, 0, 524300, 5, 0, 655359, 3, 0, 589824, 4, 0, 589825, 4, 0, 589826, 4, 0, 589827, 4, 0, 589828, 4, 0, 589829, 4, 0, 589830, 4, 0, 589831, 4, 0, 589832, 4, 0, 589833, 4, 0, 589834, 4, 0, 589835, 4, 0, 589836, 5, 0, 720895, 3, 0, 655360, 4, 0, 655361, 4, 0, 655362, 4, 0, 655363, 4, 0, 655364, 4, 0, 655365, 4, 0, 655366, 4, 0, 655367, 4, 0, 655368, 4, 0, 655369, 4, 0, 655370, 4, 0, 655371, 4, 0, 655372, 5, 0 )
 
@@ -173,8 +174,10 @@ position = Vector2( 123, 84 )
 
 [node name="basic_camera" parent="." instance=ExtResource( 6 )]
 
-[node name="Fire_Bobble" parent="." instance=ExtResource( 7 )]
-position = Vector2( 161, 106 )
+[node name="enemies" type="Node2D" parent="."]
 
-[node name="Mushroom" parent="." instance=ExtResource( 8 )]
-position = Vector2( 83, 94 )
+[node name="Fire_Bobble" parent="enemies" instance=ExtResource( 7 )]
+position = Vector2( 174, 106 )
+
+[node name="Fire_Bobble2" parent="enemies" instance=ExtResource( 7 )]
+position = Vector2( 38, 107 )

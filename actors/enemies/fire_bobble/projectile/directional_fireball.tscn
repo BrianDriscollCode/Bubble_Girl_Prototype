@@ -1,0 +1,84 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://pixel_smoother.tres" type="Material" id=1]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball5.png" type="Texture" id=2]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball3.png" type="Texture" id=3]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball6.png" type="Texture" id=4]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball4.png" type="Texture" id=5]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball1.png" type="Texture" id=6]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball2.png" type="Texture" id=7]
+[ext_resource path="res://assets/spells/fire/Sprite-0001.png" type="Texture" id=8]
+[ext_resource path="res://assets/spells/fire/Sprite-0002.png" type="Texture" id=9]
+[ext_resource path="res://assets/spells/fire/Sprite-0005.png" type="Texture" id=10]
+[ext_resource path="res://assets/spells/fire/Sprite-0004.png" type="Texture" id=11]
+[ext_resource path="res://assets/spells/fire/Sprite-0006.png" type="Texture" id=12]
+[ext_resource path="res://assets/spells/fire/Sprite-0007.png" type="Texture" id=13]
+[ext_resource path="res://assets/spells/fire/Sprite-0003.png" type="Texture" id=14]
+[ext_resource path="res://actors/enemies/fire_bobble/projectile/directional_fireball.gd" type="Script" id=32]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 19.799, 0.707107, -19.799, -0.707107, -28, -21, 0, 0, 0, 0, -76, 45 )
+}
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 2.82843
+
+[node name="directional_fireball" type="Node2D"]
+script = ExtResource( 32 )
+
+[node name="Fire" type="AnimatedSprite" parent="."]
+visible = false
+frames = SubResource( 3 )
+frame = 1
+playing = true
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+rotation = -2.19559
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Path2D/PathFollow2D"]
+material = ExtResource( 1 )
+rotation = -0.0331613
+frames = SubResource( 2 )
+frame = 3
+playing = true
+
+[node name="GroundCollision" type="Area2D" parent="Path2D/PathFollow2D"]
+rotation = 2.19559
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/GroundCollision"]
+shape = SubResource( 5 )
+
+[node name="Area2D" type="Area2D" parent="Path2D/PathFollow2D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/Area2D"]
+position = Vector2( 0, -2.38419e-07 )
+rotation = -1.55334
+shape = SubResource( 4 )
+
+[connection signal="area_entered" from="Path2D/PathFollow2D/GroundCollision" to="." method="_on_GroundCollision_area_entered"]

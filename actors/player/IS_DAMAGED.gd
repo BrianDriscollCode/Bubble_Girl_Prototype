@@ -29,12 +29,12 @@ func move_character(motion):
 
 
 func _on_InvincibleTimer_timeout():
-	player_motion.x = 0;
+	sprite.set_modulate(Color(1,1,1,1))
 	if current_state == self:
 		state_machine.set_prev_state()
 
 func _on_TakeDamageLeft_area_entered(area):
-	player_motion.x = 205;
+	sprite.set_modulate(Color(1,1,1,0.3))
 
 func _on_TakeDamageRight_area_entered(area):
-	player_motion.x = -205;
+	sprite.set_modulate(Color(1,1,1,0.3))

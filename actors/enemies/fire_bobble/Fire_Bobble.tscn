@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/enemy/fire_bobble/idle/fire_bobble_idle2.png" type="Texture" id=1]
 [ext_resource path="res://assets/enemy/fire_bobble/idle/fire_bobble_idle1.png" type="Texture" id=2]
@@ -12,6 +12,9 @@
 [ext_resource path="res://assets/enemy/fire_bobble/death/fire_bobble_idle3.png" type="Texture" id=10]
 [ext_resource path="res://assets/enemy/fire_bobble/death/fire_bobble_idle5.png" type="Texture" id=11]
 [ext_resource path="res://assets/enemy/fire_bobble/death/fire_bobble_idle8.png" type="Texture" id=12]
+[ext_resource path="res://assets/enemy/fire_bobble/walk/walk2.png" type="Texture" id=13]
+[ext_resource path="res://assets/enemy/fire_bobble/walk/walk1.png" type="Texture" id=14]
+[ext_resource path="res://assets/enemy/fire_bobble/walk/walk3.png" type="Texture" id=15]
 
 [sub_resource type="RectangleShape2D" id=47]
 extents = Vector2( 5, 4 )
@@ -37,6 +40,11 @@ animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 13 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "walk",
 "speed": 5.0
 } ]
 
@@ -73,4 +81,18 @@ animation = "idle"
 frame = 1
 playing = true
 
+[node name="returnToMovingState" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="startTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="fireballTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
 [connection signal="area_entered" from="TakeDamage" to="." method="_on_TakeDamage_area_entered"]
+[connection signal="timeout" from="returnToMovingState" to="." method="_on_returnToMovingState_timeout"]
+[connection signal="timeout" from="startTimer" to="." method="_on_startTimer_timeout"]
+[connection signal="timeout" from="fireballTimer" to="." method="_on_fireballTimer_timeout"]

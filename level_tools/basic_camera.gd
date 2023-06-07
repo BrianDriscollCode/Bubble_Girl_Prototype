@@ -28,4 +28,4 @@ func _physics_process(delta):
 		self.global_position = player.global_position + Vector2(x_offset, y_offset)
 
 func receive_player_direction():
-	return player_state_node.get_direction()
+	return player_state_node.get_direction();

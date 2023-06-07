@@ -30,8 +30,6 @@ func _ready():
 func _physics_process(delta):
 	accept_input();
 	text.set_text(state_text);
-	if counter % 6 == 0:
-		print(current_state)
 	counter += 1;
 	
 func accept_input():

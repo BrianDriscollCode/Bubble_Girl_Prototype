@@ -1,0 +1,54 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball5.png" type="Texture" id=2]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball3.png" type="Texture" id=3]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball6.png" type="Texture" id=4]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball4.png" type="Texture" id=5]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball1.png" type="Texture" id=6]
+[ext_resource path="res://assets/projectile/mini_fireball/mini_fireball2.png" type="Texture" id=7]
+[ext_resource path="res://assets/spells/fire/Sprite-0001.png" type="Texture" id=8]
+[ext_resource path="res://assets/spells/fire/Sprite-0002.png" type="Texture" id=9]
+[ext_resource path="res://assets/spells/fire/Sprite-0005.png" type="Texture" id=10]
+[ext_resource path="res://assets/spells/fire/Sprite-0004.png" type="Texture" id=11]
+[ext_resource path="res://assets/spells/fire/Sprite-0006.png" type="Texture" id=12]
+[ext_resource path="res://assets/spells/fire/Sprite-0007.png" type="Texture" id=13]
+[ext_resource path="res://assets/spells/fire/Sprite-0003.png" type="Texture" id=14]
+[ext_resource path="res://actors/enemies/fire_bobble/projectile/directional_fireball.gd" type="Script" id=32]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 3.16228
+
+[node name="directional_fireball" type="KinematicBody2D"]
+collision_layer = 2
+script = ExtResource( 32 )
+
+[node name="Fire" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -4 )
+frames = SubResource( 3 )
+frame = 3
+playing = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 4 )
+frame = 5
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 5 )
